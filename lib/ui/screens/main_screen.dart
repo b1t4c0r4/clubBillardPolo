@@ -6,6 +6,7 @@ import 'package:poloTournamnets/models/providers/tournament_provider.dart';
 import 'package:poloTournamnets/models/tournament.dart';
 import 'package:provider/provider.dart';
 
+
 class MainScreen extends StatefulWidget {
   final FirebaseUser firebaseUser;
 
@@ -52,9 +53,15 @@ class _MainScreenState extends State<MainScreen> {
 
             return ListView.builder(
                 itemCount: tournaments.length,
-                itemBuilder: (buildContext, index) =>
-                  //ProductCard(productDetails: products[index]),
-                   Text(tournaments[index].name)
+                itemBuilder: (buildContext, index){
+
+                  return _itemTorunament(
+                     tournaments[index].name, 
+                     "En: " + tournaments[index].date.toDate().difference(DateTime.now()).inDays.toString() + ' dias.', 
+                     tournaments[index].players
+                  );
+                }                 
+                  
                 );
           } else {
             return Center(
@@ -66,53 +73,6 @@ class _MainScreenState extends State<MainScreen> {
               );
           }
         },
-
-      //   builder: (BuildContext context, AsyncSnapshot<List<Tournamnet>> snapshot){
-      //     // print("Name: "+ snapshot.data.first.name);
-      //       if (!snapshot.hasData) {
-      //         return Center(
-      //           child: CircularProgressIndicator(
-      //             valueColor: new AlwaysStoppedAnimation<Color>(
-      //               Color.fromRGBO(212, 20, 15, 1.0),
-      //             ),
-      //           ),
-      //         );
-      //       }else{
-      //         return Center(
-      //           child: Column(
-      //             mainAxisAlignment: MainAxisAlignment.center,
-      //             crossAxisAlignment: CrossAxisAlignment.center,
-      //             children: <Widget>[
-      //               LimitedBox(
-      //                 maxHeight: 48,
-      //                 child: Row(
-      //                   children: [
-      //                     AspectRatio(
-      //                       aspectRatio: 1,
-      //                       child: Container(
-      //                         // color: item.color,
-      //                       ),
-      //                     ),
-      //                     SizedBox(width: 24),
-      //                     Expanded(
-      //                       child: Text(snapshot.data[0].name, 
-      //                         // style: textTheme
-      //                       ),
-      //                     ),
-      //                     SizedBox(width: 24),
-      //                     // _AddButton(item: item),
-      //                   ],
-      //                 ),
-      //               ),
-
-      //               // Text("Name: ${snapshot.data.firstName}"),
-      //               // Text("Email: ${snapshot.data.email}"),
-      //               // Text("UID: ${snapshot.data.userID}"),
-      //             ],
-      //           ),
-      //         );
-      //       }
-      //   },
        ),
 
 
@@ -120,43 +80,33 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  // StreamBuilder<User> _body() {
-  //   return StreamBuilder(
-  //     stream: Auth.getUser(widget.firebaseUser.uid),
-  //     builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
-  //       if (!snapshot.hasData) {
-  //         return Center(
-  //           child: CircularProgressIndicator(
-  //             valueColor: new AlwaysStoppedAnimation<Color>(
-  //               Color.fromRGBO(212, 20, 15, 1.0),
-  //             ),
-  //           ),
-  //         );
-  //       } else {
-  //         return Center(
-  //           child: Column(
-  //             mainAxisAlignment: MainAxisAlignment.center,
-  //             crossAxisAlignment: CrossAxisAlignment.center,
-  //             children: <Widget>[
-  //               Container(
-  //                 height: 100.0,
-  //                 width: 100.0,
-  //                 child: CircleAvatar(
-  //                   backgroundImage: (snapshot.data.profilePictureURL != '')
-  //                       ? NetworkImage(snapshot.data.profilePictureURL)
-  //                       : AssetImage("assets/images/default.png"),
-  //                 ),
-  //               ),
-  //               Text("Name: ${snapshot.data.firstName}"),
-  //               Text("Email: ${snapshot.data.email}"),
-  //               Text("UID: ${snapshot.data.userID}"),
-  //             ],
-  //           ),
-  //         );
-  //       }
-  //     },
-  //   );
-  // }
+  Widget _itemTorunament(String title, String date, int players){
+
+    return Container(
+      padding: const EdgeInsets.all(32),
+      child: Row(children: <Widget>[
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Text(title, style: TextStyle(
+                  fontWeight: FontWeight.bold
+                ))
+              ),
+              Text(date, 
+                style: TextStyle(
+                  color: Colors.grey[500]
+                )
+              )              
+          ],) 
+        ),
+        Icon(Icons.people, color: Colors.blue),
+        Text(players.toString())
+      ],),
+    );
+  }
 
   Drawer _menu() {
     return Drawer(
