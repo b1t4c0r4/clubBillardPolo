@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "541749546746",
+    "firebase_url": "https://pruebaloginfb-503dd.firebaseio.com",
+    "project_id": "pruebaloginfb-503dd",
+    "storage_bucket": "pruebaloginfb-503dd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:541749546746:android:da2fd7a3de9efd68100343",
+        "android_client_info": {
+          "package_name": "com.example.logincloud"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "541749546746-ctpl3dlr4cc11r7rkm9rrueuhv7gvec6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEw0zfrfIUTvZPIdhiCn5AIggG9cryxtw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "541749546746-ctpl3dlr4cc11r7rkm9rrueuhv7gvec6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
