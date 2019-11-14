@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:poloTournamnets/locator.dart';
+import 'package:poloTournamnets/ui/screens/tournament_screen.dart';
 import "package:poloTournamnets/ui/screens/walk_screen.dart";
 import 'package:poloTournamnets/ui/screens/root_screen.dart';
 import 'package:poloTournamnets/ui/screens/sign_in_screen.dart';
 import 'package:poloTournamnets/ui/screens/sign_up_screen.dart';
 import 'package:poloTournamnets/ui/screens/main_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'models/providers/tournament_provider.dart';
 
 void main() {
+  setupLocator();
   Firestore.instance.settings(timestampsInSnapshotsEnabled: true);
   SharedPreferences.getInstance().then((prefs) {
     runApp(MyApp(prefs: prefs));
@@ -20,21 +25,27 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Club Billard Polo',
-      debugShowCheckedModeBanner: false,
-      routes: <String, WidgetBuilder>{
-        '/walkthrough': (BuildContext context) => new WalkthroughScreen(),
-        '/root': (BuildContext context) => new RootScreen(),
-        '/signin': (BuildContext context) => new SignInScreen(),
-        '/signup': (BuildContext context) => new SignUpScreen(),
-        '/main': (BuildContext context) => new MainScreen(),
-      },
-      theme: ThemeData(
-        primaryColor: Colors.white,
-        primarySwatch: Colors.grey,
+    return  MultiProvider(
+      providers: [
+        ChangeNotifierProvider(builder: (_) => locator<TorunamentProvider>())
+      ],
+      child: MaterialApp(
+        title: 'Club Billard Polo',
+        debugShowCheckedModeBanner: false,
+        routes: <String, WidgetBuilder>{
+          '/walkthrough': (BuildContext context) => new WalkthroughScreen(),
+          '/root': (BuildContext context) => new RootScreen(),
+          '/signin': (BuildContext context) => new SignInScreen(),
+          '/signup': (BuildContext context) => new SignUpScreen(),
+          '/main': (BuildContext context) => new MainScreen(),
+          '/tournament': (BuildContext context) => new TorunamentScreen(),
+        },
+        theme: ThemeData(
+          primaryColor: Colors.white,
+          primarySwatch: Colors.grey,
+        ),
+        home: _handleCurrentScreen(),
       ),
-      home: _handleCurrentScreen(),
     );
   }
 
