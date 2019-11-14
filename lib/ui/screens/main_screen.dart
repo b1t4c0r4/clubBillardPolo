@@ -4,6 +4,7 @@ import 'package:poloTournamnets/business/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:poloTournamnets/models/providers/tournament_provider.dart';
 import 'package:poloTournamnets/models/tournament.dart';
+import 'package:poloTournamnets/ui/screens/tournament_screen.dart';
 import 'package:provider/provider.dart';
 
 
@@ -58,7 +59,8 @@ class _MainScreenState extends State<MainScreen> {
                   return _itemTorunament(
                      tournaments[index].name, 
                      "En: " + tournaments[index].date.toDate().difference(DateTime.now()).inDays.toString() + ' dias.', 
-                     tournaments[index].players
+                     tournaments[index].tplayers,
+                     context
                   );
                 }                 
                   
@@ -80,32 +82,55 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  Widget _itemTorunament(String title, String date, int players){
+  Widget _itemTorunament(String title, String date, int tplayers, BuildContext context){
 
-    return Container(
-      padding: const EdgeInsets.all(32),
-      child: Row(children: <Widget>[
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Text(title, style: TextStyle(
-                  fontWeight: FontWeight.bold
-                ))
-              ),
-              Text(date, 
-                style: TextStyle(
-                  color: Colors.grey[500]
-                )
-              )              
-          ],) 
-        ),
-        Icon(Icons.people, color: Colors.blue),
-        Text(players.toString())
-      ],),
+    return Card( //                           <-- Card widget
+      child: ListTile(
+        leading: Container(
+          padding: const EdgeInsets.only(top: 10),
+          child: Column(children: <Widget>[
+            Icon(Icons.person),
+            Text(tplayers.toString())
+          ],),
+        ), 
+        title: Text(title),
+        subtitle: Text(date),
+        onTap: (){
+          // Navigator.of(context).pushNamed("/tournament");
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => TorunamentScreen(titleBar: title),
+            )
+          );
+        },
+      ),
     );
+
+    // return ListTile(
+    //     contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+    //     leading: Container(
+    //       padding: EdgeInsets.only(right: 12.0),
+    //       decoration: new BoxDecoration(
+    //           border: new Border(
+    //               right: new BorderSide(width: 1.0, color: Colors.black))),
+    //       child: Icon(Icons.autorenew, color: Colors.black),
+    //     ),
+    //     title: Text(
+    //       "Introduction to Driving",
+    //       style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+    //     ),
+    //     // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
+    //     onTap: () {
+
+    //     },
+    //     subtitle: Row(
+    //       children: <Widget>[
+    //         Icon(Icons.linear_scale, color: Colors.black),
+    //         Text(" Intermediate", style: TextStyle(color: Colors.black))
+    //       ],
+    //     ),
+    //     trailing:
+    //         Icon(Icons.keyboard_arrow_right, color: Colors.black, size: 30.0));
   }
 
   Drawer _menu() {
@@ -114,10 +139,10 @@ class _MainScreenState extends State<MainScreen> {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: Text('Drawer Header'),
+            child: Text('Club Billar Polo'),
           ),
           ListTile(
-            title: Text('Log Out'),
+            title: Text('Salir'),
             onTap: () {
               _logOut();
               _scaffoldKey.currentState.openEndDrawer();

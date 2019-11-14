@@ -5,13 +5,13 @@ class Tournamnet {
   final String id;
   final String name;
   final Timestamp date;
-  final int players;
+  final int tplayers;
 
   Tournamnet({
     this.id,
     this.name,
     this.date,
-    this.players,
+    this.tplayers,
   });
 
   Map<String, Object> toJson() {
@@ -19,7 +19,7 @@ class Tournamnet {
       'id': id,
       'name': name,
       'date': date == null ? '' : date,
-      'players': players
+      'tplayers': tplayers
     };
   }
 
@@ -28,7 +28,7 @@ class Tournamnet {
       id: doc['id'],
       name: doc['name'],
       date: doc['date'],
-      players: doc['players'],
+      tplayers: doc['tplayers'],
     );
     return torunament;
   }
@@ -41,7 +41,7 @@ class Tournamnet {
         id = id ?? '',
         name = snapshot['name'] ?? '',
         date = snapshot['date'] ?? '',
-        players = snapshot['players'] ?? '';
+        tplayers = snapshot['tplayers'] ?? '';
 
 
 }

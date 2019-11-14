@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:poloTournamnets/locator.dart';
+import 'package:poloTournamnets/ui/screens/tournament_screen.dart';
 import "package:poloTournamnets/ui/screens/walk_screen.dart";
 import 'package:poloTournamnets/ui/screens/root_screen.dart';
 import 'package:poloTournamnets/ui/screens/sign_in_screen.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
           '/signin': (BuildContext context) => new SignInScreen(),
           '/signup': (BuildContext context) => new SignUpScreen(),
           '/main': (BuildContext context) => new MainScreen(),
+          '/tournament': (BuildContext context) => new TorunamentScreen(),
         },
         theme: ThemeData(
           primaryColor: Colors.white,

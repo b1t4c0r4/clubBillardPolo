@@ -16,7 +16,7 @@ class ApiFirebase {
     return ref.getDocuments() ;
   }
   Stream<QuerySnapshot> streamDataCollection() {
-    return ref.snapshots() ;
+    return ref.snapshots();
   }
   Future<DocumentSnapshot> getDocumentById(String id) {
     return ref.document(id).get();
