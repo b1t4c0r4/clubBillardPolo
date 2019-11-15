@@ -1,13 +1,13 @@
 
-import 'package:poloTournamnets/business/api_firebase.dart';
+import 'package:poloTournamnets/providers/data_service.dart';
 import 'package:get_it/get_it.dart';
-import 'package:poloTournamnets/models/providers/tournament_provider.dart';
+// import 'package:poloTournamnets/providers/player_provider.dart';
+// import 'package:poloTournamnets/providers/tournament_provider.dart';
 
 
 GetIt locator = GetIt();
 
 void setupLocator() {
 
-  locator.registerLazySingleton(() => ApiFirebase('tournaments'));
-  locator.registerLazySingleton(() => TorunamentProvider()) ;
+  locator.registerLazySingleton(() => DataService());
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:poloTournamnets/locator.dart';
+import 'package:poloTournamnets/providers/data_service.dart';
 import 'package:poloTournamnets/ui/screens/tournament_screen.dart';
 import "package:poloTournamnets/ui/screens/walk_screen.dart";
 import 'package:poloTournamnets/ui/screens/root_screen.dart';
@@ -9,7 +10,6 @@ import 'package:poloTournamnets/ui/screens/main_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'models/providers/tournament_provider.dart';
 
 void main() {
   setupLocator();
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return  MultiProvider(
       providers: [
-        ChangeNotifierProvider(builder: (_) => locator<TorunamentProvider>())
+        ChangeNotifierProvider(builder: (_) => locator<DataService>())        
       ],
       child: MaterialApp(
         title: 'Club Billard Polo',

@@ -2,8 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:poloTournamnets/business/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:poloTournamnets/models/providers/tournament_provider.dart';
+// import 'package:poloTournamnets/providers/tournament_provider.dart';
 import 'package:poloTournamnets/models/tournament.dart';
+import 'package:poloTournamnets/providers/data_service.dart';
 import 'package:poloTournamnets/ui/screens/tournament_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -24,13 +25,13 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
-    print(widget.firebaseUser);
+    //print(widget.firebaseUser);
   }
 
   @override
   Widget build(BuildContext context) {
 
-    final productProvider = Provider.of<TorunamentProvider>(context);
+    final productProvider = Provider.of<DataService>(context);
     
     return Scaffold(
       key: _scaffoldKey,
@@ -44,10 +45,10 @@ class _MainScreenState extends State<MainScreen> {
       ),
       drawer: _menu(),
       body: StreamBuilder(
-        stream: productProvider.fetchTorunamentsAsStream(),
+        stream: productProvider.streamFetchTorunaments(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasData) {
-
+// print(snapshot.data.documents[0].toString());
             tournaments = snapshot.data.documents
               .map((doc) => Tournamnet.fromMap(doc.data, doc.documentID))
               .toList();
@@ -55,12 +56,13 @@ class _MainScreenState extends State<MainScreen> {
             return ListView.builder(
                 itemCount: tournaments.length,
                 itemBuilder: (buildContext, index){
-
+// print(tournaments[index].players);
                   return _itemTorunament(
                      tournaments[index].name, 
                      "En: " + tournaments[index].date.toDate().difference(DateTime.now()).inDays.toString() + ' dias.', 
                      tournaments[index].tplayers,
-                     context
+                     context,
+                     tournaments[index].id
                   );
                 }                 
                   
@@ -82,7 +84,7 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  Widget _itemTorunament(String title, String date, int tplayers, BuildContext context){
+  Widget _itemTorunament(String title, String date, int tplayers, BuildContext context, String id){
 
     return Card( //                           <-- Card widget
       child: ListTile(
@@ -99,7 +101,7 @@ class _MainScreenState extends State<MainScreen> {
           // Navigator.of(context).pushNamed("/tournament");
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => TorunamentScreen(titleBar: title),
+              builder: (context) => TorunamentScreen(titleBar: title, tournamentId: id),
             )
           );
         },
