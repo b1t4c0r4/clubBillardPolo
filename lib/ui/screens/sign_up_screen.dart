@@ -28,7 +28,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   void initState() {
     super.initState();
 
-    onBackPress = () {
+    onBackPress = ( ) {
       Navigator.of(context).pop();
     };
 

@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 
 
 class MainScreen extends StatefulWidget {
+  
   final FirebaseUser firebaseUser;
 
   MainScreen({this.firebaseUser});
@@ -101,7 +102,7 @@ class _MainScreenState extends State<MainScreen> {
           // Navigator.of(context).pushNamed("/tournament");
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => TorunamentScreen(titleBar: title, tournamentId: id),
+              builder: (context) => TorunamentScreen(titleBar: title, tournamentId: id, firebaseUser: widget.firebaseUser),
             )
           );
         },
@@ -141,7 +142,7 @@ class _MainScreenState extends State<MainScreen> {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: Text('Club Billar Polo'),
+            child: Text('Club Billar Polo'),      
           ),
           ListTile(
             title: Text('Salir'),
