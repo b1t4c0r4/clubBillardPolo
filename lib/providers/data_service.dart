@@ -30,9 +30,19 @@ class DataService extends ChangeNotifier {
      return _set;
   }
 
+  Future<void> removePlayerInTournamnet(String tournamentId, String userId) async {
+    var _set = await _db
+      .collection(FBCollection._tournamnets+'/$tournamentId/'+FBCollection._players)
+      .document(userId)
+      .delete();
+     return _set;
+  }
+
   Future<User> getUserById(String userID) async {
     var doc = await _db.collection("users").document(userID).get();      
     return  User.fromDocument(doc);
   }
+
+
 
 }

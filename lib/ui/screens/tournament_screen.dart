@@ -36,18 +36,6 @@ class _TorunamentScreenState extends State<TorunamentScreen> {
     final provider = Provider.of<DataService>(context);
     // bool _registered = false;
 
-    bool _isRegistered(){
-
-      if ( players != null ){
-        players.forEach( (item) {
-          if(item.userId == widget.firebaseUser.uid) {
-            return true;
-          }
-        });
-      }     
-      return false;
-    }
-
     return Scaffold(
       key: _scaffoldKey,
       appBar: new AppBar(
@@ -99,7 +87,16 @@ class _TorunamentScreenState extends State<TorunamentScreen> {
                         : AssetImage('assets/images/default.png'),
                     ),
                     title: Text(players[index].nickname),
-                    subtitle: Text(players[index].userId) //           <-- subtitle
+                    subtitle: Text(players[index].userId),
+                    trailing: ( players[index].userId == widget.firebaseUser.uid) 
+                      ? IconButton( 
+                        icon: Icon(Icons.remove_circle, color: Colors.red), 
+                        onPressed: (){
+                          if( players[index].userId == widget.firebaseUser.uid ){
+                            provider.removePlayerInTournamnet(widget.tournamentId, widget.firebaseUser.uid);
+                          }
+                        }) 
+                      : null
                   );
                 }                     
               ); 
