@@ -5,12 +5,14 @@ class User {
   final String firstName;
   final String email;
   final String profilePictureURL;
+  final bool isAdmin;
 
   User({
     this.userID,
     this.firstName,
     this.email,
     this.profilePictureURL,
+    this.isAdmin
   });
 
   Map<String, Object> toJson() {
@@ -19,6 +21,7 @@ class User {
       'firstName': firstName,
       'email': email == null ? '' : email,
       'profilePictureURL': profilePictureURL,
+      'isAdmin': isAdmin == null ? false : isAdmin,
       'appIdentifier': 'clubBiilardPolo'
     };
   }
@@ -28,6 +31,7 @@ class User {
       userID: doc['userID'],
       firstName: doc['firstName'],
       email: doc['email'],
+      isAdmin: (doc['isAdmin'] == null) ? false : doc['isAdmin'],
       profilePictureURL: doc['profilePictureURL'],
     );
     return user;

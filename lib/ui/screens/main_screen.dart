@@ -2,8 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:poloTournamnets/business/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:poloTournamnets/business/session.dart';
+// import 'package:poloTournamnets/business/session.dart';
 // import 'package:poloTournamnets/providers/tournament_provider.dart';
 import 'package:poloTournamnets/models/tournament.dart';
+// import 'package:poloTournamnets/models/user.dart';
 import 'package:poloTournamnets/providers/data_service.dart';
 import 'package:poloTournamnets/ui/screens/tournament_screen.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +15,7 @@ import 'package:provider/provider.dart';
 class MainScreen extends StatefulWidget {
   
   final FirebaseUser firebaseUser;
+  // final User user;
 
   MainScreen({this.firebaseUser});
 
@@ -20,20 +24,35 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
 
+  // User _user;
+  Session _session;
   List<Tournamnet> tournaments;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
+  
   @override
   void initState() {
     super.initState();
     //print(widget.firebaseUser);
+    getUserInfo();
+  }
+
+  Future<void> getUserInfo( ) async {
+    
+    // final tempProvider = Provider.of<DataService>(context);
+    await Auth.getUser(widget.firebaseUser.uid)
+      .first
+      .then( (user){
+        _session = Session(userId: widget.firebaseUser.uid, user: user, firebaseUser: widget.firebaseUser);
+        return true;
+      });    
   }
 
   @override
   Widget build(BuildContext context) {
 
-    final productProvider = Provider.of<DataService>(context);
-    
+    // _user = Auth.getUser(widget.firebaseUser.uid).first.then(onValue) as User;         
+    final provider = Provider.of<DataService>(context);
+ 
     return Scaffold(
       key: _scaffoldKey,
       appBar: new AppBar(
@@ -46,7 +65,7 @@ class _MainScreenState extends State<MainScreen> {
       ),
       drawer: _menu(),
       body: StreamBuilder(
-        stream: productProvider.streamFetchTorunaments(),
+        stream: provider.streamFetchTorunaments(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasData) {
 // print(snapshot.data.documents[0].toString());
@@ -58,13 +77,7 @@ class _MainScreenState extends State<MainScreen> {
                 itemCount: tournaments.length,
                 itemBuilder: (buildContext, index){
 // print(tournaments[index].players);
-                  return _itemTorunament(
-                     tournaments[index].name, 
-                     "En: " + tournaments[index].date.toDate().difference(DateTime.now()).inDays.toString() + ' dias.', 
-                     tournaments[index].tplayers,
-                     context,
-                     tournaments[index].id
-                  );
+                  return _itemTorunament( context, tournaments[index] );
                 }                 
                   
                 );
@@ -85,7 +98,11 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  Widget _itemTorunament(String title, String date, int tplayers, BuildContext context, String id){
+  Widget _itemTorunament(BuildContext context, Tournamnet tournamnet){
+
+    String title = tournamnet.name;
+    String date = "En: " + tournamnet.date.toDate().difference(DateTime.now()).inDays.toString() + ' dias.';
+    int tplayers = tournamnet.tplayers;
 
     return Card( //                           <-- Card widget
       child: ListTile(
@@ -102,7 +119,7 @@ class _MainScreenState extends State<MainScreen> {
           // Navigator.of(context).pushNamed("/tournament");
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => TorunamentScreen(titleBar: title, tournamentId: id, firebaseUser: widget.firebaseUser),
+              builder: (context) => TorunamentScreen(titleBar: title, tournament: tournamnet, session: _session),
             )
           );
         },

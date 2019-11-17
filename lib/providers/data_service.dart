@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:poloTournamnets/models/player.dart';
-import 'package:poloTournamnets/models/user.dart';
+// import 'package:poloTournamnets/models/user.dart';
 
 class FBCollection {
 
@@ -38,10 +38,10 @@ class DataService extends ChangeNotifier {
      return _set;
   }
 
-  Future<User> getUserById(String userID) async {
-    var doc = await _db.collection("users").document(userID).get();      
-    return  User.fromDocument(doc);
-  }
+  // Future<User> getUserById(String userID) async {
+  //   var doc = await _db.collection("users").document(userID).get();      
+  //   return  User.fromDocument(doc);
+  // }
 
 
 

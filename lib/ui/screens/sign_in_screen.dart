@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+// import 'package:poloTournamnets/ui/screens/main_screen.dart';
 // import 'package:google_sign_in/google_sign_in.dart';
 import "package:poloTournamnets/ui/widgets/custom_text_field.dart";
 import 'package:poloTournamnets/business/auth.dart';
@@ -201,6 +202,15 @@ class _SignInScreenState extends State<SignInScreen> {
         SystemChannels.textInput.invokeMethod('TextInput.hide');
         _changeBlackVisible();
         await Auth.signIn(email, password)
+          // .then( (uid) {
+          //   Auth.getUser(uid).first.then( (user){            
+          //     Navigator.of(context).push(
+          //       MaterialPageRoute(
+          //         builder: (context) => MainScreen(firebaseUser: ,),
+          //       )
+          //     );
+          //   })
+          // });
             .then((uid) => Navigator.of(context).pop());
       } catch (e) {
         print("Error in email sign in: $e");

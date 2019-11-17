@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+// import 'package:poloTournamnets/models/user.dart';
+// import 'package:poloTournamnets/providers/data_service.dart';
 import 'package:poloTournamnets/ui/screens/welcome_screen.dart';
 import 'package:poloTournamnets/ui/screens/main_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:provider/provider.dart';
 
 class RootScreen extends StatefulWidget {
   @override
@@ -9,11 +12,15 @@ class RootScreen extends StatefulWidget {
 }
 
 class _RootScreenState extends State<RootScreen> {
+  
   @override
   Widget build(BuildContext context) {
+
+    // final provider = Provider.of<DataService>(context);
+
     return new StreamBuilder<FirebaseUser>(
       stream: FirebaseAuth.instance.onAuthStateChanged,
-      builder: (BuildContext context, snapshot) {
+      builder: (BuildContext context, snapshot){
         if (snapshot.connectionState == ConnectionState.waiting) {
           return new Container(
             color: Colors.white,
