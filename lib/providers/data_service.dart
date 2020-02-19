@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:poloTournamnets/models/phase.dart';
 import 'package:poloTournamnets/models/player.dart';
 // import 'package:poloTournamnets/models/user.dart';
 
@@ -8,6 +9,7 @@ class FBCollection {
 
   static const _tournamnets = 'tournaments';
   static const _players = 'players';
+  static const _phases = 'phases';
 }
 
 class DataService extends ChangeNotifier {
@@ -38,11 +40,15 @@ class DataService extends ChangeNotifier {
      return _set;
   }
 
-  // Future<User> getUserById(String userID) async {
-  //   var doc = await _db.collection("users").document(userID).get();      
-  //   return  User.fromDocument(doc);
-  // }
+  Stream<QuerySnapshot> streamFetchPhasesByTorunamnetId(String torunamentId) {
+    return _db.collection(FBCollection._tournamnets+'/$torunamentId/'+FBCollection._phases).orderBy('id', descending: true).snapshots();
+  }
 
-
-
+  Future<void> addPhaseInTournamnet(String tournamentId, Phase phase) async {
+    var _set = await _db
+      .collection(FBCollection._tournamnets+'/$tournamentId/'+FBCollection._phases)
+      .document(phase.id)
+      .setData(phase.toJson());
+     return _set;
+  }
 }

@@ -18,7 +18,7 @@ class WelcomeScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 35.0, right: 15.0, left: 15.0),
             child: Text(
-              "Say Hello To Your New App!",
+              "La nueva forma de consultar resultados!",
               softWrap: true,
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -49,7 +49,7 @@ class WelcomeScreen extends StatelessWidget {
             padding:
                 const EdgeInsets.symmetric(vertical: 8.0, horizontal: 40.0),
             child: CustomFlatButton(
-              title: "Log In",
+              title: "Ingresar",
               fontSize: 22,
               fontWeight: FontWeight.w700,
               textColor: Colors.white,
@@ -66,7 +66,7 @@ class WelcomeScreen extends StatelessWidget {
             padding:
                 const EdgeInsets.symmetric(vertical: 8.0, horizontal: 40.0),
             child: CustomFlatButton(
-              title: "Sign Up",
+              title: "Crear Usuario",
               fontSize: 22,
               fontWeight: FontWeight.w700,
               textColor: Colors.black54,

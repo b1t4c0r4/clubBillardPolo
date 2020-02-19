@@ -8,26 +8,26 @@ enum authProblems { UserNotFound, PasswordNotValid, NetworkError, UnknownError }
 
 class Auth {
   static Future<String> signIn(String email, String password) async {
-    FirebaseUser user = await FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: email, password: password);
+    FirebaseUser user = (await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: password)).user;
     return user.uid;
   }
 
-  static Future<String> signInWithFacebok(String accessToken) async {
-    FirebaseUser user = await FirebaseAuth.instance
-        .signInWithFacebook(accessToken: accessToken);
-    return user.uid;
-  }
+  // static Future<String> signInWithFacebok(String accessToken) async {
+  //   FirebaseUser user = await FirebaseAuth.instance
+  //       .signInWithFacebook(accessToken: accessToken);
+  //   return user.uid;
+  // }
 
-  static Future<String> signInWithGoogle(String accessToken, String idToken ) async {
-    FirebaseUser user = await FirebaseAuth.instance
-        .signInWithGoogle(accessToken: accessToken, idToken: idToken);
-    return user.uid;
-  }
+  // static Future<String> signInWithGoogle(String accessToken, String idToken ) async {
+  //   FirebaseUser user = await FirebaseAuth.instance
+  //       .signInWithGoogle(accessToken: accessToken, idToken: idToken);
+  //   return user.uid;
+  // }
 
   static Future<String> signUp(String email, String password) async {
-    FirebaseUser user = await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(email: email, password: password);
+    FirebaseUser user = (await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: email, password: password)).user;
     return user.uid;
   }
 

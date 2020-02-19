@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+// import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 // import 'package:poloTournamnets/ui/screens/main_screen.dart';
 // import 'package:google_sign_in/google_sign_in.dart';
 import "package:poloTournamnets/ui/widgets/custom_text_field.dart";
@@ -8,7 +8,7 @@ import 'package:poloTournamnets/business/validator.dart';
 import 'package:flutter/services.dart';
 import 'package:poloTournamnets/ui/widgets/custom_flat_button.dart';
 import 'package:poloTournamnets/ui/widgets/custom_alert_dialog.dart';
-import 'package:poloTournamnets/models/user.dart';
+// import 'package:poloTournamnets/models/user.dart';
 
 class SignInScreen extends StatefulWidget {
   _SignInScreenState createState() => _SignInScreenState();
@@ -108,55 +108,55 @@ class _SignInScreenState extends State<SignInScreen> {
                         color: Color.fromRGBO(212, 20, 15, 1.0),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text(
-                        "OR",
-                        softWrap: true,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          decoration: TextDecoration.none,
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.w300,
-                          fontFamily: "OpenSans",
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 14.0, horizontal: 40.0),
-                      child: CustomFlatButton(
-                        title: "Facebook Login",
-                        fontSize: 22,
-                        fontWeight: FontWeight.w700,
-                        textColor: Colors.white,
-                        onPressed: () {
-                          _facebookLogin(context: context);
-                        },
-                        splashColor: Colors.black12,
-                        borderColor: Color.fromRGBO(59, 89, 152, 1.0),
-                        borderWidth: 0,
-                        color: Color.fromRGBO(59, 89, 152, 1.0),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 14.0, horizontal: 40.0),
-                      child: CustomFlatButton(
-                        title: "Google Login",
-                        fontSize: 22,
-                        fontWeight: FontWeight.w700,
-                        textColor: Colors.white,
-                        onPressed: () {
-                          // _googleLogIn(context: context);
-                        },
-                        splashColor: Colors.black12,
-                        borderColor: Color.fromRGBO(59, 89, 152, 1.0),
-                        borderWidth: 0,
-                        color: Color.fromRGBO(59, 89, 152, 1.0),
-                      ),
-                    )
+                    // Padding(
+                    //   padding: const EdgeInsets.all(10.0),
+                    //   child: Text(
+                    //     "OR",
+                    //     softWrap: true,
+                    //     textAlign: TextAlign.center,
+                    //     style: TextStyle(
+                    //       color: Colors.black,
+                    //       decoration: TextDecoration.none,
+                    //       fontSize: 15.0,
+                    //       fontWeight: FontWeight.w300,
+                    //       fontFamily: "OpenSans",
+                    //     ),
+                    //   ),
+                    // ),
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(
+                    //       vertical: 14.0, horizontal: 40.0),
+                    //   child: CustomFlatButton(
+                    //     title: "Facebook Login",
+                    //     fontSize: 22,
+                    //     fontWeight: FontWeight.w700,
+                    //     textColor: Colors.white,
+                    //     onPressed: () {
+                    //       _facebookLogin(context: context);
+                    //     },
+                    //     splashColor: Colors.black12,
+                    //     borderColor: Color.fromRGBO(59, 89, 152, 1.0),
+                    //     borderWidth: 0,
+                    //     color: Color.fromRGBO(59, 89, 152, 1.0),
+                    //   ),
+                    // ),
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(
+                    //       vertical: 14.0, horizontal: 40.0),
+                    //   child: CustomFlatButton(
+                    //     title: "Google Login",
+                    //     fontSize: 22,
+                    //     fontWeight: FontWeight.w700,
+                    //     textColor: Colors.white,
+                    //     onPressed: () {
+                    //       // _googleLogIn(context: context);
+                    //     },
+                    //     splashColor: Colors.black12,
+                    //     borderColor: Color.fromRGBO(59, 89, 152, 1.0),
+                    //     borderWidth: 0,
+                    //     color: Color.fromRGBO(59, 89, 152, 1.0),
+                    //   ),
+                    // )
                   ],
                 ),
                 SafeArea(
@@ -245,44 +245,44 @@ class _SignInScreenState extends State<SignInScreen> {
   //         });
   // }
 
-  void _facebookLogin({BuildContext context}) async {
-    try {
-      SystemChannels.textInput.invokeMethod('TextInput.hide');
-      _changeBlackVisible();
-      FacebookLogin facebookLogin = new FacebookLogin();
-      FacebookLoginResult result = await facebookLogin
-          .logInWithReadPermissions(['email', 'public_profile']);
-      switch (result.status) {
-        case FacebookLoginStatus.loggedIn:
-          Auth.signInWithFacebok(result.accessToken.token).then((uid) {
-            Auth.getCurrentFirebaseUser().then((firebaseUser) {
-              User user = new User(
-                firstName: firebaseUser.displayName,
-                userID: firebaseUser.uid,
-                email: firebaseUser.email ?? '',
-                profilePictureURL: firebaseUser.photoUrl ?? '',
-              );
-              Auth.addUser(user);
-              Navigator.of(context).pop();
-            });
-          });
-          break;
-        case FacebookLoginStatus.cancelledByUser: _changeBlackVisible(); break;
-        case FacebookLoginStatus.error:
-          print("Error in facebook sign in: ${result.errorMessage}");
-          _changeBlackVisible();
-        break;
-      }
-    } catch (e) {
-      print("Error in facebook sign in: $e");
-      String exception = Auth.getExceptionText(e);
-      _showErrorAlert(
-        title: "Login failed",
-        content: exception,
-        onPressed: _changeBlackVisible,
-      );
-    }
-  }
+  // void _facebookLogin({BuildContext context}) async {
+  //   try {
+  //     SystemChannels.textInput.invokeMethod('TextInput.hide');
+  //     _changeBlackVisible();
+  //     FacebookLogin facebookLogin = new FacebookLogin();
+  //     FacebookLoginResult result = await facebookLogin
+  //         .logInWithReadPermissions(['email', 'public_profile']);
+  //     switch (result.status) {
+  //       case FacebookLoginStatus.loggedIn:
+  //         Auth.signInWithFacebok(result.accessToken.token).then((uid) {
+  //           Auth.getCurrentFirebaseUser().then((firebaseUser) {
+  //             User user = new User(
+  //               firstName: firebaseUser.displayName,
+  //               userID: firebaseUser.uid,
+  //               email: firebaseUser.email ?? '',
+  //               profilePictureURL: firebaseUser.photoUrl ?? '',
+  //             );
+  //             Auth.addUser(user);
+  //             Navigator.of(context).pop();
+  //           });
+  //         });
+  //         break;
+  //       case FacebookLoginStatus.cancelledByUser: _changeBlackVisible(); break;
+  //       case FacebookLoginStatus.error:
+  //         print("Error in facebook sign in: ${result.errorMessage}");
+  //         _changeBlackVisible();
+  //       break;
+  //     }
+  //   } catch (e) {
+  //     print("Error in facebook sign in: $e");
+  //     String exception = Auth.getExceptionText(e);
+  //     _showErrorAlert(
+  //       title: "Login failed",
+  //       content: exception,
+  //       onPressed: _changeBlackVisible,
+  //     );
+  //   }
+  // }
 
   void _showErrorAlert({String title, String content, VoidCallback onPressed}) {
     showDialog(

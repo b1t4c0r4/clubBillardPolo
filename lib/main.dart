@@ -12,8 +12,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
-  Firestore.instance.settings(timestampsInSnapshotsEnabled: true);
+  Firestore.instance.settings();
   SharedPreferences.getInstance().then((prefs) {
     runApp(MyApp(prefs: prefs));
   });

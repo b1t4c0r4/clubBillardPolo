@@ -57,7 +57,12 @@ class _TorunamentScreenState extends State<TorunamentScreen> {
                   // Navigator.of(context).pushNamed("/tournament");
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => PhaseScreen(titleBar: 'Fases de '+widget.titleBar, tournament: widget.tournament, session: widget.session),
+                      builder: (context) => PhaseScreen(
+                        titleBar: 'Fases de '+widget.titleBar, 
+                        tournament: widget.tournament,
+                        session: widget.session,
+                        players: players,
+                      ),
                     )
                   );
                 }
